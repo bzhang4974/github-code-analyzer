@@ -48,40 +48,54 @@ jobs:
           # Run cloc to analyze lines of code, excluding non-source code files
           echo "Calculating lines of code..."
           mkdir -p ../output
-          cloc . --exclude-ext=html,htm,css,json,md,markdown,xml,svg,scss,yaml,toml,csv,txt,yml,sass,lock,log,properties,HTML,HTM,CSS,JSON,MD,MARKDOWN,XML,SVG,SCSS,YAML,TOML,CSV,TXT,YML,SASS,LOCK,LOG,PROPERTIES --exclude-lang=XML,Properties,Maven,Gradle --json > ../output/cloc-output.json
+          cloc . \
+            --exclude-ext=html,htm,css,json,md,markdown,xml,svg,scss,yaml,toml,csv,txt,yml,sass,lock,log,properties,HTML,HTM,CSS,JSON,MD,MARKDOWN,XML,SVG,SCSS,YAML,TOML,CSV,TXT,YML,SASS,LOCK,LOG,PROPERTIES \
+            --json > ../output/cloc-output.json
 
       # Commit and push the updated cloc-output.json and README.md to the current branch
       - name: Commit and Push Output
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
+          INCLUDE_LANGS: "C,Javascript,Java,Python"   # Mention Languages to be displayed in the README (match CLOC names)
+          EXCLUDE_LANGS: "XML,Properties,Maven,Gradle"    # Mention Languages to be ignored completely in the README
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          TOTAL_LINES=$(jq '.SUM.code // 0' output/cloc-output.json)
-
-          # Function to format numbers with commas (ensuring proper locale settings)
-          format_number() {
-            export LC_ALL="en_US.UTF-8"
-            printf "%'d\n" $1
-          }
-
-          # Build sorted breakdown as CSV: lang,lines
-          LANG_BREAKDOWN=$(jq -r 'to_entries
-            | map(select(.key != "header" and .key != "SUM"))
-            | map({lang: .key, lines: .value.code})
-            | map(select(.lines > 1))
-            | sort_by(-.lines)[]
-            | "\(.lang),\(.lines)"' output/cloc-output.json)
-
+          TOTAL_LINES=0
+          OTHER_LINES=0
           FORMATTED_BREAKDOWN=""
-          while IFS=, read -r LANG LINES; do
-            FORMATTED=$(format_number $LINES)
-            FORMATTED_BREAKDOWN+=$(printf "%-15s --> %10s lines\n" "$LANG" "$FORMATTED")$'\n'
-          done <<< "$LANG_BREAKDOWN"
 
-          FORMATTED_TOTAL=$(format_number $TOTAL_LINES)
+          IFS=',' read -r -a INCLUDE <<< "$INCLUDE_LANGS"
+          IFS=',' read -r -a EXCLUDE <<< "$EXCLUDE_LANGS"
 
+          for entry in $(jq -r 'to_entries | map(select(.key != "header" and .key != "SUM")) | map({lang: .key, lines: .value.code}) | map(select(.lines > 0)) | .[] | @base64' output/cloc-output.json); do
+            _jq() { echo "$entry" | base64 --decode | jq -r "$1"; }
+            LANG=$(_jq '.lang')
+            LINES=$(_jq '.lines')
+
+            # Skip excluded languages
+            if [[ " ${EXCLUDE[@]} " =~ (^|[[:space:]])$LANG($|[[:space:]]) ]]; then
+              continue
+            fi
+
+            # Include explicitly listed languages
+            if [[ " ${INCLUDE[@]} " =~ (^|[[:space:]])$LANG($|[[:space:]]) ]]; then
+              FORMATTED=$(printf "%'d\n" $LINES)
+              FORMATTED_BREAKDOWN+=$(printf "%-15s --> %10s lines\n" "$LANG" "$FORMATTED")$'\n'
+              TOTAL_LINES=$((TOTAL_LINES + LINES))
+            else
+              OTHER_LINES=$((OTHER_LINES + LINES))
+            fi
+          done
+
+          if [[ $OTHER_LINES -gt 0 ]]; then
+            FORMATTED_OTHER=$(printf "%'d\n" $OTHER_LINES)
+            FORMATTED_BREAKDOWN+=$(printf "%-15s --> %10s lines\n" "Others" "$FORMATTED_OTHER")$'\n'
+            TOTAL_LINES=$((TOTAL_LINES + OTHER_LINES))
+          fi
+
+          FORMATTED_TOTAL=$(printf "%'d\n" $TOTAL_LINES)
           CODE_BLOCK="\`\`\`
           [ LANGUAGES BREAKDOWN ]
 
