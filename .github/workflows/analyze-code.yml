@@ -91,7 +91,7 @@ jobs:
 
             if [[ "$HL" == *",$LANG,"* ]]; then
               FORMATTED=$(format_number "$LINES")
-              FORMATTED_BREAKDOWN+=$(printf "%-12s --> %10s lines\n" "$LANG" "$FORMATTED")$'\n'
+              FORMATTED_BREAKDOWN+=$(printf "%-12s --> %s lines\n" "$LANG" "$FORMATTED")$'\n'
             else
               OTHER_LINES=$((OTHER_LINES + LINES))
             fi
@@ -106,7 +106,7 @@ jobs:
           # Add Others (formatted)
           if [[ $OTHER_LINES -gt 0 ]]; then
             FORMATTED_OTHER=$(format_number "$OTHER_LINES")
-            FORMATTED_BREAKDOWN+=$(printf "%-12s --> %10s lines\n" "Others" "$FORMATTED_OTHER")$'\n'
+            FORMATTED_BREAKDOWN+=$(printf "%-12s --> %s lines\n" "Others" "$FORMATTED_OTHER")$'\n'
           fi
 
           # Format total ONCE (do not overwrite later)
