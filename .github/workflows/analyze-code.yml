@@ -14,7 +14,7 @@ jobs:
     env:
       # Check official cloc documentation for supported languages and their exact names
       # Languages to show individually in README (others will be grouped under "Others")
-      HIGHLIGHT_LANGS: "C,JavaScript,Java,Python"
+      HIGHLIGHT_LANGS: "JavaScript,TypeScript,JSX,Vuejs Component,PHP,C#"
 
       # Languages to ignore completely (not shown and not counted in totals)
       IGNORE_LANGS: "JSON,HTML,CSS,SCSS,Sass,Markdown,SVG,YAML,TOML,CSV,Text,Properties"
@@ -91,7 +91,7 @@ jobs:
 
             if [[ "$HL" == *",$LANG,"* ]]; then
               FORMATTED=$(format_number "$LINES")
-              FORMATTED_BREAKDOWN+=$(printf "%-15s --> %10s lines\n" "$LANG" "$FORMATTED")$'\n'
+              FORMATTED_BREAKDOWN+=$(printf "%s --> %s lines\n" "$LANG" "$FORMATTED")$'\n'
             else
               OTHER_LINES=$((OTHER_LINES + LINES))
             fi
@@ -106,7 +106,7 @@ jobs:
           # Add Others (formatted)
           if [[ $OTHER_LINES -gt 0 ]]; then
             FORMATTED_OTHER=$(format_number "$OTHER_LINES")
-            FORMATTED_BREAKDOWN+=$(printf "%-15s --> %10s lines\n" "Others" "$FORMATTED_OTHER")$'\n'
+            FORMATTED_BREAKDOWN+=$(printf "%s --> %s lines\n" "Others" "$FORMATTED_OTHER")$'\n'
           fi
 
           # Format total ONCE (do not overwrite later)
