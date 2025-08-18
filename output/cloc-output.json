@@ -1,11 +1,12 @@
 {"header" : {
   "cloc_url"           : "github.com/AlDanial/cloc",
   "cloc_version"       : "1.98",
-  "elapsed_seconds"    : 2.62168502807617,
-  "n_files"            : 3797,
-  "n_lines"            : 350620,
-  "files_per_second"   : 1448.30517752405,
-  "lines_per_second"   : 133738.41489162},
+  "elapsed_seconds"    : 2.69644403457642,
+  "n_files"            : 3747,
+  "n_lines"            : 343982,
+  "files_per_second"   : 1389.60792508665,
+  "lines_per_second"   : 127568.751878077,
+  "report_file"        : "../output/cloc-output.json"},
 "JavaScript" :{
   "nFiles": 1181,
   "blank": 26388,
@@ -26,36 +27,21 @@
   "blank": 798,
   "comment": 3607,
   "code": 5248},
-"Sass" :{
-  "nFiles": 32,
-  "blank": 361,
-  "comment": 239,
-  "code": 4706},
 "XML" :{
   "nFiles": 31,
   "blank": 32,
   "comment": 18,
   "code": 1288},
-"JSON" :{
-  "nFiles": 1,
-  "blank": 0,
-  "comment": 0,
-  "code": 823},
-"YAML" :{
+"Python" :{
   "nFiles": 8,
-  "blank": 108,
-  "comment": 54,
-  "code": 459},
+  "blank": 83,
+  "comment": 36,
+  "code": 275},
 "Gradle" :{
   "nFiles": 10,
   "blank": 27,
   "comment": 7,
   "code": 171},
-"Text" :{
-  "nFiles": 11,
-  "blank": 64,
-  "comment": 0,
-  "code": 156},
 "DOS Batch" :{
   "nFiles": 2,
   "blank": 48,
@@ -86,11 +72,6 @@
   "blank": 5,
   "comment": 0,
   "code": 24},
-"Properties" :{
-  "nFiles": 6,
-  "blank": 10,
-  "comment": 31,
-  "code": 21},
 "EJS" :{
   "nFiles": 2,
   "blank": 0,
@@ -107,7 +88,7 @@
   "comment": 18,
   "code": 0},
 "SUM": {
-  "blank": 41247,
-  "comment": 21845,
-  "code": 287528,
-  "nFiles": 3797} }
+  "blank": 40787,
+  "comment": 21557,
+  "code": 281638,
+  "nFiles": 3747} }
