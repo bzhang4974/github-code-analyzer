@@ -1,1 +1,69 @@
-{}
+{"header" : {
+  "cloc_url"           : "github.com/AlDanial/cloc",
+  "cloc_version"       : "1.98",
+  "elapsed_seconds"    : 0.334510087966919,
+  "n_files"            : 220,
+  "n_lines"            : 101431,
+  "files_per_second"   : 657.678222313453,
+  "lines_per_second"   : 303222.544397617,
+  "report_file"        : "../output/cloc-output.json"},
+"JavaScript" :{
+  "nFiles": 38,
+  "blank": 10763,
+  "comment": 8727,
+  "code": 55774},
+"C/C++ Header" :{
+  "nFiles": 13,
+  "blank": 1852,
+  "comment": 1339,
+  "code": 11103},
+"C#" :{
+  "nFiles": 86,
+  "blank": 634,
+  "comment": 1190,
+  "code": 3683},
+"Razor" :{
+  "nFiles": 26,
+  "blank": 168,
+  "comment": 40,
+  "code": 2100},
+"C++" :{
+  "nFiles": 12,
+  "blank": 339,
+  "comment": 228,
+  "code": 1232},
+"C" :{
+  "nFiles": 9,
+  "blank": 144,
+  "comment": 8,
+  "code": 671},
+"Python" :{
+  "nFiles": 19,
+  "blank": 214,
+  "comment": 87,
+  "code": 644},
+"Visual Studio Solution" :{
+  "nFiles": 8,
+  "blank": 8,
+  "comment": 8,
+  "code": 307},
+"MSBuild script" :{
+  "nFiles": 5,
+  "blank": 19,
+  "comment": 0,
+  "code": 79},
+"Dockerfile" :{
+  "nFiles": 3,
+  "blank": 6,
+  "comment": 6,
+  "code": 31},
+"CMake" :{
+  "nFiles": 1,
+  "blank": 5,
+  "comment": 3,
+  "code": 19},
+"SUM": {
+  "blank": 14152,
+  "comment": 11636,
+  "code": 75643,
+  "nFiles": 220} }
